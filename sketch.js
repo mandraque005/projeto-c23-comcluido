@@ -6,8 +6,7 @@ const Constraint = Matter.Constraint;
 var engine, world;
 var canvas;
 var palyer, playerBase, playerArcher;
-var playerArrows = [];
-
+var baseimage;
 
 function preload() {
   backgroundImg = loadImage("./assets/background.png");
@@ -20,120 +19,46 @@ function setup() {
 
   engine = Engine.create();
   world = engine.world;
+  angleMode(DEGREES);
+
+  //criar corpo da base do jogador
+  Canvas = CreateCnavas(windowWidth,windowHeight)
+
+  engine=Engine.create()
+  world = engine.world
 
   angleMode(DEGREES);
 
   var options = {
-    isStatic: true
+    isStatic: true 
   };
 
-  playerBase = Bodies.rectangle(200, 350, 180, 150, options);
+  playerBase = Bodies.rectangle(200,350,180,150, options);
   World.add(world, playerBase);
 
-  player = Bodies.rectangle(250, playerBase.position.y - 160, 50, 180, options);
-  World.add(world,player)
+  player = Bodies.rectangle(250,playerBase.positioon.y-160,50,180,options)
+  //criar corpo do jogador
 
-  playerArcher = new PlayerArcher(
-    340,
-    playerBase.position.y - 112,
-    120,
-    120
-  );
+
+
 }
 
 function draw() {
   background(backgroundImg);
 
+  //exibir a imagem do jogador usando a função image()
+   Engine.update(engine);
+   Image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
+   Image(playerimage,player.position.x,player.position.y,50,180)
+
+  //exibir a imagem da base do jogador usando a função image()
+
+
   Engine.update(engine);
-  image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
-  image(playerimage,player.position.x,player.position.y,50,180)
 
-  playerArcher.display();
-
-    for (var i; i < playerArrows.length; i++) {
-     if (playerArrows[i] !== undefined) {
-        playerArrows[i].display();
-      }
-    }
-
-   // for (var i = 0, i++) {
-   //   if (playerArrows[i] !== undefined) {
-   //     playerArrows[i].display();
-   //   }
-   // }
-  
-   // for (var i = 0; i < playerArrows.length; i++) {
-   //   if (playerArrows[i] !== undefined) {
-   //     playerArrows[i].display();
-   //   }
-   // }
-
-   // for (var i) {
-   //   if (playerArrows[i] !== undefined) {
-   //     playerArrows[i].display();
-   //   }
-   // }
-
-  // Título
+  // Title
   fill("#FFFF");
   textAlign("center");
   textSize(40);
   text("ARQUEIRO ÉPICO", width / 2, 100);
-}
-
- function keyPressed() {
-   if (keyCode === 32) {
-    var posX = playerArcher.body.position.x;
-     var posY = playerArcher.body.position.y;
-     var angle = playerArcher.body.angle;
-    var arrow = new PlayerArrow(posX, posY, 100, 10, angle);
-
-    Matter.Body.setAngle(arrow.body, angle);
-    playerArrows.push(arrow);
-   }
- }
-
- function keyPressed() {
-   if (keyCode === 23) {
-     var posX = playerArcher.body.position.x;
-     var posY = playerArcher.body.position.y;
-     var angle = playerArcher.body.angle;
-     var arrow = new PlayerArrow(posX, posY, 100, 10, angle);
-
-     Matter.Body.setAngle(arrow.body, angle);
-     playerArrows.push(arrow);
-   }
- }
-
- function keyPressed() {
-   if (keyCode === 32) {
-     var posX = playerArcher.body.position.x;
-    var posY = playerArcher.body.position.y;
-    var angle = playerArcher.body.angle;
-     var arrow = new PlayerArrow(posX, posY, 100, 10, angle);
-
-     Matter.Body.setAngle(arrow.body, angle);
-     playerArrows.push(arrow);
-   }
- }
-
-// function keyPressed() {
-//   if (keyCode === 32) {
-//     var posX = playerArcher.body.position.x;
-//     var posY = playerArcher.body.position.y;
-//     var angle = playerArcher.body.angle;
-//     var arrow = new PlayerArrow(posX, posY, 100, 10, angle);
-
-//     Matter.Body.setAngle(arrow.body, angle);
-//     playerArrows(arrow);
-//   }
-// }
-
-function keyReleased() {
-  if (keyCode === 32) {
-    if (playerArrows.length) {
-      var angle = playerArcher.body.angle;
-      playerArrows[playerArrows.length - 1].shoot(angle);
-    }
-  }
 }
